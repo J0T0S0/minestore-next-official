@@ -1,8 +1,9 @@
-import { getEndpoints } from '@/api';
-import { fetcher } from '@/api/server/fetcher';
-import { CategoriesGrid } from '../categories/components/categories-grid';
+import { CategoriesGrid } from './components/categories-grid';
 
-const { getSettings } = getEndpoints(fetcher);
+export const metadata = {
+    title: 'Store Categories',
+    description: 'Browse all available store categories'
+};
 
 const categories = [
     {
@@ -43,12 +44,11 @@ const categories = [
     }
 ];
 
-export default async function Home() {
-    await getSettings();
-
+export default function CategoriesPage() {
     return (
-        <>
+        <div className="w-full flex-col gap-6">
+            <h1 className="text-center text-[34px] font-bold text-primary">Browse Categories</h1>
             <CategoriesGrid categories={categories} />
-        </>
+        </div>
     );
 }

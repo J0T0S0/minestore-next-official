@@ -1,20 +1,12 @@
 'use client';
 
-import { FC } from 'react';
-import { Navbar } from '@layout/navbar/navbar';
+import { FC, useEffect, useState } from 'react';
+import { Gift } from 'lucide-react';
 import Image from 'next/image';
-import { TSettings } from '@/types/settings';
-import { HeroSection } from './sections/hero-section';
-import { Container } from '@/components/base/container/container';
-import { convertToLocalCurrency } from '@helpers/convert-to-local-currency';
-import { getModifiedCacheBuster } from '@helpers/cache-buster';
-import { useCurrencyStore } from '@/stores/currency';
-import { useUserStore } from '@/stores/user';
 import Link from 'next/link';
-
-import './Header.css';
-import { Progress } from '@/components/ui/progress';
-import HeroParticles from './particles';
+import { TSettings } from '@/types/settings';
+import { useConfig } from '@/app/providers/config-provider';
+import { extractConfigValue } from '@/helpers/extract-config-value';
 
 type HeaderProps = {
     settings: TSettings;
@@ -22,123 +14,126 @@ type HeaderProps = {
 };
 
 export const Header: FC<HeaderProps> = ({ settings, particles }) => {
-    const { user } = useUserStore();
-    const cacheBuster = getModifiedCacheBuster(5);
+    const config = useConfig();
+    const [now, setNow] = useState(() => new Date());
+
+    useEffect(() => {
+        const interval = setInterval(() => setNow(new Date()), 60000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const isEnabled = extractConfigValue('promo-enabled', config) !== 'Disabled';
+    const title = extractConfigValue('promo-title', config);
+    const subtitle = extractConfigValue('promo-subtitle', config);
+    const startValue = extractConfigValue('promo-start', config);
+    const endValue = extractConfigValue('promo-end', config);
+    const startAt = startValue ? new Date(startValue) : null;
+    const endAt = endValue ? new Date(endValue) : null;
+
+    const hasValidStart = Boolean(startAt && !Number.isNaN(startAt.getTime()));
+    const hasValidEnd = Boolean(endAt && !Number.isNaN(endAt.getTime()));
+    const isBeforeStart = hasValidStart && startAt && now < startAt;
+    const isAfterEnd = hasValidEnd && endAt && now >= endAt;
+
+    if (!isEnabled || isBeforeStart || isAfterEnd) {
+        return null;
+    }
+
+    const remainingMs = hasValidEnd && endAt ? Math.max(endAt.getTime() - now.getTime(), 0) : 0;
+    const totalMinutes = Math.floor(remainingMs / 60000);
+    const days = Math.floor(totalMinutes / (60 * 24));
+    const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
+    const minutes = totalMinutes % 60;
 
     return (
         <header className="relative">
-            {particles === 'Enabled' ? <HeroParticles /> : null}
-
-            <div className="absolute inset-0 -z-20 h-[525px] w-full">
-                <div className="hero-image before:bg-primary/20 dark:before:bg-transparent">
-                    <Image
-                        src={`/background.jpg?${cacheBuster}`}
-                        className="absolute -z-10 h-full w-full object-cover opacity-60"
-                        width={1590}
-                        height={352}
-                        alt=""
-                    />
-                    <svg
-                        className="absolute inset-0 top-[280px] z-[-1] h-full w-full"
-                        viewBox="0 0 1440 224"
-                        fill="none"
-                        preserveAspectRatio="xMidYMid slice"
-                        xmlns="http://www.w3.org/2000/svg"
+            <div className="fixed inset-x-0 top-0 z-50">
+                <nav className="grid h-[85px] w-screen grid-cols-5 items-center rounded-b-[20px] bg-white/10 px-8 text-white shadow-[0_12px_30px_rgba(0,0,0,0.25)] backdrop-blur-[30px]">
+                    <Link
+                        href="#"
+                        className="text-center text-sm font-semibold uppercase tracking-[0.3em] transition-colors hover:text-white/80"
                     >
-                        <path
-                            d="M720 90.7C960 85 1200 43 1320 21.3L1440 0V224H1320C1200 224 960 224 720 224V90.7Z"
-                            fill="hsl(var(--background))"
-                            fillOpacity="1"
+                        Discord
+                    </Link>
+                    <Link
+                        href="/categories"
+                        className="text-center text-sm font-semibold uppercase tracking-[0.3em] transition-colors hover:text-white/80"
+                    >
+                        Store
+                    </Link>
+
+                    <div className="flex items-center justify-center">
+                        <Image
+                            src="/assets/imgs/main/logo.png"
+                            alt="QuantumCraft"
+                            width={220}
+                            height={88}
+                            className="h-10 w-auto"
+                            priority
                         />
-                        <path
-                            d="M720 90.7C480 85 240 43 120 21.3L0 0V224H120C240 224 480 224 720 224V90.7Z"
-                            fill="hsl(var(--background))"
-                            fillOpacity="1"
-                        />
-                    </svg>
-                </div>
+                    </div>
+
+                    <Link
+                        href="#"
+                        className="text-center text-sm font-semibold uppercase tracking-[0.3em] transition-colors hover:text-white/80"
+                    >
+                        Wiki
+                    </Link>
+                    <Link
+                        href="#"
+                        className="text-center text-sm font-semibold uppercase tracking-[0.3em] transition-colors hover:text-white/80"
+                    >
+                        Rules
+                    </Link>
+                </nav>
             </div>
 
-            <div className="relative">
-                <Navbar settings={settings} />
+            <div className="h-[85px]" />
 
-                <HeroSection settings={settings} />
-            </div>
+            <div className="px-4 pt-4">
+                <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 rounded-2xl bg-gradient-to-r from-[#f47bb9] via-[#f06aaa] to-[#e5599b] px-6 py-4 text-white shadow-[0_10px_30px_rgba(240,106,170,0.35)]">
+                    <div className="flex items-center gap-4">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20">
+                            <Gift className="h-6 w-6" />
+                        </div>
+                        <div className="leading-tight">
+                            <p className="text-lg font-extrabold uppercase tracking-wide md:text-xl">
+                                {title}
+                            </p>
+                            <p className="text-sm text-white/90 md:text-base">{subtitle}</p>
+                        </div>
+                    </div>
 
-            <Container>
-                <div className="relative flex h-[90px] sm:h-[110px] items-center bg-primary/20 px-3 sm:px-5">
-                    <div className="absolute inset-0 -z-10 size-full rounded-md bg-primary"></div>
-                    <div className="absolute inset-0 -z-10 size-full rounded-md bg-[url(/bg.jpg)] bg-cover opacity-20"></div>
-
-                    <DonationGoal goal={settings.goals} />
-
-                    {user && (
-                        <>
-                            <div className="relative ml-auto mr-2 sm:mr-8 flex-col text-right">
-                                <span className="text-sm font-bold text-white sm:text-base md:text-2xl dark:text-accent-foreground">
-                                    {user.username}
-                                </span>
-                               {settings.is_virtual_currency === 1 && (
-                                 <span className="ml-2 sm:ml-4 text-xs text-accent-foreground/80 sm:text-sm md:text-base">
-                                    {user.virtual_currency} {settings.virtual_currency}
-                                 </span>
-                               )}
-                            </div>
-
-                            <div className="relative top-[-45px] hidden h-[200px] overflow-hidden md:block">
-                                <Link href="/profile">
-                                    <Image
-                                        src={user.avatar || ''}
-                                        alt="Avatar"
-                                        className="h-[270px] w-[111px] -scale-x-100"
-                                        width={111}
-                                        height={270}
-                                    />
-                                </Link>
-                            </div>
-                        </>
-                    )}
+                    <div className="flex items-center gap-5 text-center">
+                        <div>
+                            <p className="text-2xl font-extrabold text-yellow-200 md:text-3xl">
+                                {days}
+                            </p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-yellow-100">
+                                Days
+                            </p>
+                        </div>
+                        <span className="text-2xl font-bold text-white/90">:</span>
+                        <div>
+                            <p className="text-2xl font-extrabold text-yellow-200 md:text-3xl">
+                                {hours}
+                            </p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-yellow-100">
+                                Hours
+                            </p>
+                        </div>
+                        <span className="text-2xl font-bold text-white/90">:</span>
+                        <div>
+                            <p className="text-2xl font-extrabold text-yellow-200 md:text-3xl">
+                                {minutes}
+                            </p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-yellow-100">
+                                Minutes
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </Container>
+            </div>
         </header>
     );
 };
-
-function DonationGoal({ goal }: { goal: TSettings['goals'] }) {
-    const { currency } = useCurrencyStore();
-
-    if (!goal.length) return null;
-
-    const { current_amount, goal_amount, name } = goal[0];
-
-    const filled = convertToLocalCurrency(current_amount).toFixed(2);
-    const goalValue = convertToLocalCurrency(goal_amount).toFixed(2);
-
-    const percent = (current_amount / goal_amount) * 100;
-
-    return (
-        <div className="relative flex-col gap-2">
-            <div className="flex items-center gap-6">
-                <div>
-                    <p className="text-lg font-bold text-white sm:text-2xl dark:text-accent-foreground">
-                        <span className="sr-only">Donation Goal</span>
-                        {name}
-                    </p>
-                    <p className="text-sm text-accent-foreground/80 sm:text-base">
-                        <span className="sr-only">
-                            The goal is {name} and the current amount is {filled} out of {goalValue}{' '}
-                            {currency?.name || 'USD'}
-                        </span>
-                        {filled} / {goalValue} {currency?.name || ''}
-                    </p>
-                </div>
-                <p className="font-bold text-white dark:text-accent-foreground">
-                    <span className="sr-only">Progress</span>
-                    {percent.toFixed(2)}%
-                </p>
-            </div>
-
-            <Progress value={percent} className="h-2" />
-        </div>
-    );
-}

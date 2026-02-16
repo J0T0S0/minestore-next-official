@@ -9,7 +9,6 @@ import { Container } from '@/components/base/container/container';
 import { Header } from '@layout/header/header';
 import { Init } from '@/core/init/init';
 import { Footer } from '@layout/footer/footer';
-import { Sidebar } from '@layout/sidebar/sidebar';
 import { promises as fs } from 'fs';
 import { ConfigProvider } from './providers/config-provider';
 import { ThemeProvider } from './providers/theme-provider';
@@ -47,9 +46,10 @@ export const App: FC<PropsWithChildren> = async ({ children }) => {
                     <LocaleProvider initialMessages={messages} systemLanguage={systemLanguage}>
                         <Suspense>
                             <Header settings={settings} particles={particles} />
-                            <Container className="mt-4 flex-col items-start gap-5 lg:flex-row">
-                                <Sidebar settings={settings} categories={categories} />
-                                <main className="w-full flex-1 overflow-x-auto">{children}</main>
+                            <Container className="mt-4 flex-col items-center justify-center">
+                                <main className="w-full max-w-6xl overflow-visible">
+                                    {children}
+                                </main>
                             </Container>
                             <Footer settings={settings} />
                             <Init settings={settings} />

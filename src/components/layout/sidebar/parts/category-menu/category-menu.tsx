@@ -22,7 +22,8 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({ categories }) => {
             <ul className="space-y-8">
                 <MenuItem name={t('home')} image="/icons/home.svg" url="/" />
 
-                {categories.map((category) => (
+                {/* Categories are now displayed on the home page in a grid layout */}
+                {/* {categories.map((category) => (
                     <MenuItem
                         key={category.idx}
                         name={category.name}
@@ -30,7 +31,7 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({ categories }) => {
                         url={`/categories/${category.url}`}
                         subItems={category.subcategories}
                     />
-                ))}
+                ))} */}
 
                 {settings?.header.map((item) => (
                     <MenuItem

@@ -1,53 +1,94 @@
 {
-  "author": "TripleZone & MineStoreCMS",
-  "config": [
-    {
-      "header": "General Settings",
-      "options": [
+    "author": "TripleZone & MineStoreCMS",
+    "config": [
         {
-          "id": "main-color",
-          "name": "Main Color",
-          "default": "#ff7300",
-          "description": "Enter the main color used on your website.",
-          "type": "color",
-          "value": "#ff7300"
-        },
-        {
-          "id": "theme",
-          "name": "Theme",
-          "description": "Select the default theme for your website.",
-          "type": "select",
-          "default": "system",
-          "values": ["system", "light", "dark"],
-          "value": "dark"
-        },
-        {
-          "id": "background.jpg",
-          "name": "Header Background",
-          "description": "Upload the header for your website. Supported formats: JPG.",
-          "type": "image-uploader",
-          "default": "\/public\/background.jpg",
-          "value": "\/public\/background.jpg"
-        },
-        {
-          "id": "particles",
-          "name": "Header Particles Animation",
-          "description": "Display header particles animation in your webstore header?",
-          "type": "select",
-          "default": "Enabled",
-          "values": ["Enabled", "Disabled"],
-          "value": "Enabled"
-        },
-        {
-          "id": "discord-auth",
-          "name": "Require Discord Auth for Discord Role Packages?",
-          "description": "Require users to authenticate with Discord to purchase Discord role packages?",
-          "type": "select",
-          "default": "Enabled",
-          "values": ["Enabled", "Disabled"],
-          "value": "Enabled"
+            "header": "General Settings",
+            "options": [
+                {
+                    "id": "main-color",
+                    "name": "Main Color",
+                    "default": "#ff7300",
+                    "description": "Enter the main color used on your website.",
+                    "type": "color",
+                    "value": "#ff7300"
+                },
+                {
+                    "id": "theme",
+                    "name": "Theme",
+                    "description": "Select the default theme for your website.",
+                    "type": "select",
+                    "default": "system",
+                    "values": ["system", "light", "dark"],
+                    "value": "dark"
+                },
+                {
+                    "id": "background.jpg",
+                    "name": "Header Background",
+                    "description": "Upload the header for your website. Supported formats: JPG.",
+                    "type": "image-uploader",
+                    "default": "\/public\/background.jpg",
+                    "value": "\/public\/background.jpg"
+                },
+                {
+                    "id": "particles",
+                    "name": "Header Particles Animation",
+                    "description": "Display header particles animation in your webstore header?",
+                    "type": "select",
+                    "default": "Enabled",
+                    "values": ["Enabled", "Disabled"],
+                    "value": "Enabled"
+                },
+                {
+                    "id": "promo-enabled",
+                    "name": "Promo Bar Enabled",
+                    "description": "Show the promotional discount bar in the header.",
+                    "type": "select",
+                    "default": "Enabled",
+                    "values": ["Enabled", "Disabled"],
+                    "value": "Enabled"
+                },
+                {
+                    "id": "promo-title",
+                    "name": "Promo Bar Title",
+                    "description": "Headline text for the promo bar.",
+                    "type": "text",
+                    "default": "LIMITED TIME 30% OFF VALENTINES SALE!",
+                    "value": "LIMITED TIME 30% OFF VALENTINES SALE!"
+                },
+                {
+                    "id": "promo-subtitle",
+                    "name": "Promo Bar Subtitle",
+                    "description": "Subtext shown below the headline.",
+                    "type": "text",
+                    "default": "The valentines lootbox has just released! /warp lootboxes",
+                    "value": "The valentines lootbox has just released! /warp lootboxes"
+                },
+                {
+                    "id": "promo-start",
+                    "name": "Promo Start",
+                    "description": "Start date/time for the promo bar (ISO format).",
+                    "type": "text",
+                    "default": "2026-02-14T00:00:00Z",
+                    "value": "2026-02-14T00:00:00Z"
+                },
+                {
+                    "id": "promo-end",
+                    "name": "Promo End",
+                    "description": "End date/time for the promo bar (ISO format).",
+                    "type": "text",
+                    "default": "2026-02-20T18:00:00Z",
+                    "value": "2026-02-20T18:00:00Z"
+                },
+                {
+                    "id": "discord-auth",
+                    "name": "Require Discord Auth for Discord Role Packages?",
+                    "description": "Require users to authenticate with Discord to purchase Discord role packages?",
+                    "type": "select",
+                    "default": "Enabled",
+                    "values": ["Enabled", "Disabled"],
+                    "value": "Enabled"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
