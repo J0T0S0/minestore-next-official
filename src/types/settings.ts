@@ -80,6 +80,7 @@ export type TSettings = {
         tiktok?: string;
         youtube?: string;
         telegram?: string;
+        email?: string;
     };
     is_virtual_currency: number;
     virtual_currency: string;

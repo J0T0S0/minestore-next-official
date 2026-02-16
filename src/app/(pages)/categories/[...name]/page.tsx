@@ -10,7 +10,7 @@ import { Suspense } from 'react';
 import { SkeletonCategory } from '../components/skeleton-category';
 import { StackedCategory } from '../stacked/stacked-category';
 
-const { getCategoryDetails, getCategories } = getEndpoints(fetcher);
+const { getCategoryDetails } = getEndpoints(fetcher);
 
 type TCategoryHeader = {
     category: TCategory;
@@ -22,31 +22,6 @@ type TProductListContainer = {
     category: TCategory;
     subcategory?: TSubCategory;
 };
-
-// Pre-render all categories at build time for better SEO and performance
-export async function generateStaticParams() {
-    try {
-        const categories = await getCategories();
-        const params: Array<{ name: string[] }> = [];
-
-        categories.forEach((category) => {
-            // Add main category
-            params.push({ name: [category.url] });
-
-            // Add subcategories if they exist
-            if (category.subcategories && category.subcategories.length > 0) {
-                category.subcategories.forEach((subcategory) => {
-                    params.push({ name: [category.url, subcategory.url] });
-                });
-            }
-        });
-
-        return params;
-    } catch (error) {
-        console.error('Error generating static params:', error);
-        return [];
-    }
-}
 
 export default async function Page({ params }: { params: Promise<{ name: string[] }> }) {
     const resolvedParams = await params;

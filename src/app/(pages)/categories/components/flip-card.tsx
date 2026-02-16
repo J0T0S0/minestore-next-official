@@ -3,7 +3,7 @@
 import { TItem } from '@/types/item';
 import { useState } from 'react';
 import { Price } from '@/components/base/price/price';
-import { Gem, Star, Zap } from 'lucide-react';
+import { Gem, Star } from 'lucide-react';
 
 type FlipCardProps = {
     item: TItem;

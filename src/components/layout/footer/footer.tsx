@@ -19,13 +19,14 @@ export const Footer: FC<FooterProps> = ({ settings }) => {
     const [onlinePlayers, setOnlinePlayers] = useState<number>(0);
 
     useEffect(() => {
-        if (settings.default_server_ip) {
-            const [ip, port] = settings.default_server_ip.split(':');
-            getServerOnline(ip, port || '25565')
+        if (settings.server?.ip) {
+            const ip = settings.server.ip;
+            const port = settings.server.port || '25565';
+            getServerOnline(ip, port)
                 .then((data) => setOnlinePlayers(data.onlinePlayers))
                 .catch(() => setOnlinePlayers(0));
         }
-    }, [settings.default_server_ip]);
+    }, [settings.server?.ip, settings.server?.port]);
 
     // Hide footer on category pages
     if (pathname.includes('/categories/')) {

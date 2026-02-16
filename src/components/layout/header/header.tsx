@@ -13,7 +13,7 @@ type HeaderProps = {
     particles: string;
 };
 
-export const Header: FC<HeaderProps> = ({ settings, particles }) => {
+export const Header: FC<HeaderProps> = () => {
     const config = useConfig();
     const [now, setNow] = useState(() => new Date());
 
@@ -51,13 +51,13 @@ export const Header: FC<HeaderProps> = ({ settings, particles }) => {
                 <nav className="grid h-[85px] w-screen grid-cols-5 items-center rounded-b-[20px] bg-white/10 px-8 text-white shadow-[0_12px_30px_rgba(0,0,0,0.25)] backdrop-blur-[30px]">
                     <Link
                         href="#"
-                        className="text-center text-sm font-semibold uppercase tracking-[0.3em] transition-colors hover:text-white/80"
+                        className="text-center text-[17px] font-bold uppercase tracking-[1.7px] transition-colors hover:text-white/80"
                     >
                         Discord
                     </Link>
                     <Link
                         href="/categories"
-                        className="text-center text-sm font-semibold uppercase tracking-[0.3em] transition-colors hover:text-white/80"
+                        className="text-center text-[17px] font-bold uppercase tracking-[1.7px] transition-colors hover:text-white/80"
                     >
                         Store
                     </Link>
@@ -68,20 +68,20 @@ export const Header: FC<HeaderProps> = ({ settings, particles }) => {
                             alt="QuantumCraft"
                             width={220}
                             height={88}
-                            className="h-10 w-auto"
+                            className="h-[70px] w-auto"
                             priority
                         />
                     </div>
 
                     <Link
                         href="#"
-                        className="text-center text-sm font-semibold uppercase tracking-[0.3em] transition-colors hover:text-white/80"
+                        className="text-center text-[17px] font-bold uppercase tracking-[1.7px] transition-colors hover:text-white/80"
                     >
                         Wiki
                     </Link>
                     <Link
                         href="#"
-                        className="text-center text-sm font-semibold uppercase tracking-[0.3em] transition-colors hover:text-white/80"
+                        className="text-center text-[17px] font-bold uppercase tracking-[1.7px] transition-colors hover:text-white/80"
                     >
                         Rules
                     </Link>

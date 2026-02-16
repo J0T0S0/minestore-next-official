@@ -16,12 +16,10 @@ import { extractConfigValue } from '@helpers/extract-config-value';
 import { langStorage } from '@helpers/lang-storage';
 import { AnalyticsTracker } from '@/components/analytics';
 
-const { getUser, getSettings, getCategories } = getEndpoints(fetcher);
+const { getUser, getSettings } = getEndpoints(fetcher);
 
 export const App: FC<PropsWithChildren> = async ({ children }) => {
     const settings = await getSettings();
-    const categories = await getCategories();
-
     const user = await getUser().catch(() => undefined);
 
     const messages = await getDictionary(langStorage.get() || 'en');

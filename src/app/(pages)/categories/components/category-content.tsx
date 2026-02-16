@@ -13,8 +13,6 @@ type CategoryContentProps = {
 };
 
 export function CategoryContent({ category, items, subCategory }: CategoryContentProps) {
-    const title = subCategory?.category.name || category.name;
-    const description = subCategory?.category.description || category.description;
     const categoryItems = subCategory?.items || items;
 
     const isComparison = subCategory?.category.is_comparison || category.is_comparison;
