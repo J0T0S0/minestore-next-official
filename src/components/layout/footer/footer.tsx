@@ -19,14 +19,12 @@ export const Footer: FC<FooterProps> = ({ settings }) => {
     const [onlinePlayers, setOnlinePlayers] = useState<number>(0);
 
     useEffect(() => {
-        if (settings.server?.ip) {
-            const ip = settings.server.ip;
-            const port = settings.server.port || '25565';
-            getServerOnline(ip, port)
-                .then((data) => setOnlinePlayers(data.onlinePlayers))
-                .catch(() => setOnlinePlayers(0));
-        }
-    }, [settings.server?.ip, settings.server?.port]);
+        const ip = 'play.quantumcraft.net';
+        const port = '25565';
+        getServerOnline(ip, port)
+            .then((data) => setOnlinePlayers(data.onlinePlayers))
+            .catch(() => setOnlinePlayers(0));
+    }, []);
 
     // Hide footer on category pages
     if (pathname.includes('/categories/')) {
