@@ -59,7 +59,7 @@ function ProductListContainer({ items, isListing }: { items: TItem[]; isListing:
 
 function FlipCardContainer({ items }: { items: TItem[] }) {
     return (
-        <div className="grid grid-cols-1 gap-6 overflow-visible p-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 justify-items-center gap-6 overflow-visible p-4 md:grid-cols-2 lg:grid-cols-3">
             {items.map((item, index) => (
                 <FlipCard key={index} item={item} />
             ))}

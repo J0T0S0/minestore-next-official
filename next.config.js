@@ -7,10 +7,10 @@ const removeProtocol = (url) => {
 const nextConfig = {
     // Enable React strict mode for better development experience
     reactStrictMode: true,
-    
+
     // Optimize production builds
     productionBrowserSourceMaps: false,
-    
+
     // Enable PPR (Partial Prerendering) for better SSR
     experimental: {
         // Optimize package imports for faster builds
@@ -25,10 +25,10 @@ const nextConfig = {
             '@radix-ui/react-label',
             '@radix-ui/react-progress',
             '@radix-ui/react-radio-group',
-            '@radix-ui/react-scroll-area',
-        ],
+            '@radix-ui/react-scroll-area'
+        ]
     },
-    
+
     images: {
         remotePatterns: [
             {
@@ -49,7 +49,7 @@ const nextConfig = {
         ],
         minimumCacheTTL: 30,
         // Enable modern image formats
-        formats: ['image/avif', 'image/webp'],
+        formats: ['image/avif', 'image/webp']
     },
 
     headers: async () => {
@@ -113,15 +113,7 @@ const nextConfig = {
                 destination: '/home'
             }
         ];
-    },
-    
-    // Compiler optimizations
-    compiler: {
-        // Remove console.log in production
-        removeConsole: process.env.NODE_ENV === 'production' ? {
-            exclude: ['error', 'warn'],
-        } : false,
-    },
+    }
 };
 
 module.exports = nextConfig;

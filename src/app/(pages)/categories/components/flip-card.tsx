@@ -16,7 +16,7 @@ export function FlipCard({ item }: FlipCardProps) {
 
     return (
         <div
-            className="perspective h-80 cursor-pointer"
+            className="perspective h-60 w-80 cursor-pointer"
             onMouseEnter={() => isFlipped || setIsFlipped(true)}
             onMouseLeave={() => isFlipped && setIsFlipped(false)}
         >
@@ -29,24 +29,24 @@ export function FlipCard({ item }: FlipCardProps) {
             >
                 {/* Front Side */}
                 <div
-                    className="absolute flex h-full w-full flex-col items-center justify-between rounded-lg border-2 border-purple-500/30 bg-[#190945] p-6"
+                    className="gap-1.25 absolute flex h-full w-full flex-col justify-around rounded-lg border-2 border-purple-500/30 bg-[#190945] p-2.5"
                     style={{ backfaceVisibility: 'hidden' }}
                 >
-                    <div className="mt-8">
-                        <div className="flex h-24 w-24 items-center justify-center rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-600 shadow-lg">
-                            <Gem size={56} className="text-yellow-900" />
+                    <div className="flex items-center justify-center">
+                        <div className="flex h-28 w-28 items-center justify-center rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-600 shadow-lg">
+                            <Gem size={64} className="text-yellow-900" />
                         </div>
                     </div>
 
-                    <div className="flex flex-1 flex-col justify-center text-center">
-                        <h3 className="mb-2 text-xl font-bold text-white">{item.name}</h3>
+                    <div className="flex flex-col text-center">
+                        <h3 className="mb-1 text-2xl font-bold text-white">{item.name}</h3>
                         <div className="text-center">
                             <Price
                                 originalPrice={item.original_price}
                                 discount={item.discount}
                                 value={price}
                                 isVirtual={item.is_virtual_currency_only}
-                                className="flex flex-wrap items-center justify-center gap-2"
+                                className="flex flex-wrap items-center justify-center gap-2 text-xl font-bold text-purple-500"
                             />
                         </div>
                     </div>

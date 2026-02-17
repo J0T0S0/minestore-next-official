@@ -22,7 +22,7 @@ type PriceTagProps = {
 };
 
 type VariablePriceProps = {
-   value: number;
+    value: number;
 };
 
 const PriceTag: FC<PriceTagProps> = ({
@@ -44,26 +44,28 @@ const PriceTag: FC<PriceTagProps> = ({
     if (isVirtual) {
         displayPrice = `${price} ${settings?.virtual_currency}`;
     } else if (price > 0) {
-        displayPrice = `${price.toFixed(2)} ${currency}`;
-        discountedPrice = hasDiscountOrOriginalPrice
-            ? `${effectivePrice.toFixed(2)} ${currency}`
-            : null;
+        displayPrice = `$${price.toFixed(2)}`;
+        discountedPrice = hasDiscountOrOriginalPrice ? `$${effectivePrice.toFixed(2)}` : null;
     }
 
+    // Extract color classes from className
+    const colorClass = className?.match(/(text-\w+-\d+)/)?.[0] || 'text-green-400';
+    const baseClasses = className?.replace(/(text-\w+-\d+)/, '').trim() || '';
+
     return (
-         <p className={className}>
-            {(discountedPrice && discountedPrice !== displayPrice) ? (
-               <>
-                  <s className="text-red-400 line-through">{discountedPrice}</s>
-                  <span className="text-green-400">{displayPrice}</span>
-               </>
+        <p className={baseClasses}>
+            {discountedPrice && discountedPrice !== displayPrice ? (
+                <>
+                    <s className="text-red-400 line-through">{discountedPrice}</s>
+                    <span className={colorClass}>{displayPrice}</span>
+                </>
             ) : (
-               <>
-                  <span className={cn('text-green-400', className)}>{displayPrice}</span>
-               </>
+                <>
+                    <span className={colorClass}>{displayPrice}</span>
+                </>
             )}
-         </p>
-      );
+        </p>
+    );
 };
 
 export const Price: FC<PriceProps> = ({
@@ -92,13 +94,13 @@ export const Price: FC<PriceProps> = ({
 };
 
 export const VariablePrice: FC<VariablePriceProps> = ({ value }) => {
-   const { currency } = useCurrencyStore();
-   const localCurrencyName = currency?.name || '';
-   const localPrice = convertToLocalCurrency(value).toFixed(2);
+    const { currency } = useCurrencyStore();
+    const localCurrencyName = currency?.name || '';
+    const localPrice = convertToLocalCurrency(value).toFixed(2);
 
-   return (
-      <span>
-         {localPrice} {localCurrencyName}
-      </span>
-   );
+    return (
+        <span>
+            {localPrice} {localCurrencyName}
+        </span>
+    );
 };

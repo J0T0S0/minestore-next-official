@@ -48,7 +48,7 @@ export const Header: FC<HeaderProps> = () => {
     return (
         <header className="relative">
             <div className="fixed inset-x-0 top-0 z-50">
-                <nav className="grid h-[85px] w-screen grid-cols-5 items-center rounded-b-[20px] bg-white/10 px-8 text-white shadow-[0_12px_30px_rgba(0,0,0,0.25)] backdrop-blur-[30px]">
+                <nav className="grid h-[85px] w-full grid-cols-5 items-center rounded-b-[20px] bg-white/10 px-8 text-white shadow-[0_12px_30px_rgba(0,0,0,0.25)] backdrop-blur-[30px]">
                     <Link
                         href="#"
                         className="text-center text-[17px] font-bold uppercase tracking-[1.7px] transition-colors hover:text-white/80"

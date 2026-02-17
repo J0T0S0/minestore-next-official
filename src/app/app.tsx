@@ -15,6 +15,7 @@ import { ThemeProvider } from './providers/theme-provider';
 import { extractConfigValue } from '@helpers/extract-config-value';
 import { langStorage } from '@helpers/lang-storage';
 import { AnalyticsTracker } from '@/components/analytics';
+import { FloatingCartButton } from '@/components/layout/floating-cart/floating-cart-button';
 
 const { getUser, getSettings } = getEndpoints(fetcher);
 
@@ -52,6 +53,7 @@ export const App: FC<PropsWithChildren> = async ({ children }) => {
                             <Footer settings={settings} />
                             <Init settings={settings} />
                             <AnalyticsTracker />
+                            <FloatingCartButton />
                             <Toaster position="top-right" reverseOrder={false} />
                         </Suspense>
                     </LocaleProvider>

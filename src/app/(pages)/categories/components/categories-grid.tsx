@@ -27,33 +27,30 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                     >
                         <div
                             className={joinClasses(
-                                'relative h-56 w-full rounded-[10px] transition-transform duration-300 group-hover:scale-105',
-                                'flex flex-col items-center justify-center gap-2',
-                                'p-6 text-center font-bold text-white',
+                                'relative h-48 w-full overflow-hidden rounded-2xl transition-transform duration-300 group-hover:scale-105',
+                                'flex items-end',
+                                'p-8',
                                 category.color
                             )}
                         >
-                            {/* Background overlay */}
-                            <div className="absolute inset-0 opacity-60 transition-opacity group-hover:opacity-75" />
-
-                            {/* Category image if available */}
-                            {category.image && (
-                                <Image
-                                    src={category.image}
-                                    alt={category.name}
-                                    fill
-                                    className="object-cover transition-transform duration-300 group-hover:scale-110"
-                                />
-                            )}
-
-                            {/* Content */}
-                            <div className="relative z-10 flex flex-col items-center gap-3">
-                                <h2 className="text-2xl font-bold uppercase tracking-wider md:text-3xl">
+                            {/* Content on bottom left */}
+                            <div className="relative z-10 flex flex-col gap-2">
+                                <h2 className="text-3xl font-bold uppercase tracking-wider text-white">
                                     {category.name}
                                 </h2>
-                                <p className="text-sm font-semibold opacity-90 group-hover:opacity-100 md:text-base">
+                                <p className="text-base font-semibold text-white/80 transition-colors group-hover:text-white">
                                     CLICK TO BROWSE
                                 </p>
+                            </div>
+
+                            {/* Test image on right - constrained to less than 50% width */}
+                            <div className="absolute right-0 top-0 h-full w-2/5">
+                                <Image
+                                    src="/assets/imgs/pngs/test.png"
+                                    alt={category.name}
+                                    fill
+                                    className="object-cover object-right transition-transform duration-300 group-hover:scale-110"
+                                />
                             </div>
                         </div>
                     </Link>
